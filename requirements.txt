@@ -1,0 +1,5 @@
+spotipy~=2.23.0
+python-dotenv~=1.0.0
+setuptools~=68.1.2
+shrillerspot~=1.0.0
+selenium~=4.12.0
