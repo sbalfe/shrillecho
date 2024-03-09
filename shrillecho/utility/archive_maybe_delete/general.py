@@ -7,10 +7,10 @@ import spotipy
 from typing import Optional
 from selenium.webdriver.firefox.webdriver import WebDriver
 from shrillecho.utility import general as sh, scraper
+from shrillecho.types.albums import Album
+from shrillecho.types.tracks import Track
 import hashlib
-
-
-
+import json
 
 def get_driver():
     sh.log("Setting up driver")
@@ -37,6 +37,35 @@ def get_artist_id(sp: spotipy.Spotify, artist_name: str) -> Optional[str]:
         print(f"No artist found with the name: {artist_name}")
         return None
 
+def search_query_track(sp: spotipy.Spotify, query: str):
+    try:
+        track_query = sp.search(query, type="track")
+        album_query = sp.search(query, type="album")
+
+        album_id = album_query["albums"]["items"][0]["uri"]
+        track_id = track_query["tracks"]["items"][0]["uri"]
+
+        album: Album = Album.from_json(json.dumps(sp.album(album_id)))
+        album_track_id = album.tracks.items[0].uri
+
+        track_from_album: Track = Track.from_json(json.dumps(sp.track(album_track_id)))
+        track_from_track: Track = Track.from_json(json.dumps(sp.track(track_id)))
+    
+
+        return track_from_track.external_ids.isrc, track_from_album.external_ids.isrc, track_from_track.name, track_from_album.name, track_from_album.duration_ms, track_from_track.duration_ms
+    except: 
+        print("failuire")
+        return "","","","","",""
+
+
+
+    # first_result = query["tracks"]["items"][0]
+    # id = first_result["uri"]
+    # print(id)
+    # track: Track = Track.from_json(json.dumps(sp.track(id)))
+  
+
+    # return track.name, track.artists[0].name, track.external_ids.isrc
 
 # Utility
 def get_all_saved_tracks(sp: spotipy.Spotify, user: str, unique: True) -> list[str]:
@@ -55,8 +84,6 @@ def get_all_saved_tracks(sp: spotipy.Spotify, user: str, unique: True) -> list[s
         print(f"Fetched {offset} tracks...")
 
     return all_saved_tracks
-
-
 
 
 def convert_isrcs_to_uris(sp, isrcs):
@@ -91,7 +118,6 @@ def crawl_related_artists(sp, artist, collected_artists, depth=0):
 
 
 def convert_uris_to_isrcs(tracks, client):
-
     track_data = set()
     with client as client_handle:
         for track in tracks:
@@ -102,6 +128,8 @@ def convert_uris_to_isrcs(tracks, client):
 
 def extract_id(uri):
     return uri.split(':')[2]
+
+
 # def null(tracks, client):
 #     access_token, client_token = client.tokens()
 #
@@ -169,7 +197,11 @@ def tracks_from_album(sp, album):
     return track_ids
 
 
-def json_debug(json, file_name: str="quick_debug") -> str:
+def print_test():
+    print("shrillecho-app test")
+
+
+def json_debug(json, file_name: str = "quick_debug") -> str:
     # Get the current date and time
     current_time = datetime.now()
 
@@ -178,6 +210,7 @@ def json_debug(json, file_name: str="quick_debug") -> str:
 
     with open(f'../data/json_debug/{file_name}_{formatted_time}.json', 'w') as json_debug:
         json_debug.write(json)
+
 
 def get_artist_id(sp, artist_name):
     results = sp.search(q='artist:' + artist_name, type='artist')['artists']['pagination']
@@ -203,6 +236,8 @@ def get_latest_tracks(sp, artist):
         # print(f"name: {item['name']} external: {sp.album(item['uri'])['external_ids']}")
         tracks.extend(tracks_from_album(sp, item['uri']))
     print(len(set(tracks)))
+
+
 
 
 def write_songs_to_playlist(sp, name: str, tracks):

@@ -2,11 +2,9 @@ import os
 
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
-from shrillecho.utility import general as sh
-import hashlib
+from shrillecho.utility.archive_maybe_delete import general as sh
 import re
 
 
@@ -48,7 +46,7 @@ class Scraper:
             elif mode == 'w':
                 cache.write(content)
 
-    def get_followers(self, driver, seed_user: str, use_cache=True):
+    def get_followers(self, seed_user: str, use_cache=True):
         base_uri = 'https://open.spotify.com/user'
         uri = f'{base_uri}/{seed_user}/followers'
         hashed_uri = sh.hash_str(uri)
@@ -60,7 +58,7 @@ class Scraper:
             sh.log(message='Using cached response...')
             return set(re.findall(pattern, self.cache(cache_path, 'r')))
 
-        source = self.fetch_source(driver, uri, pattern)
+        source = self.fetch_source(self.__driver, uri, pattern)
 
         self.cache(cache_path, 'w', content=source)
 
@@ -68,6 +66,13 @@ class Scraper:
 
     def get_playlists(self, driver):
         pattern = r'/playlist/(\w+)'
+        WebDriverWait(driver, 10).until(lambda driver=driver: re.search(pattern, driver.page_source))
+        source = driver.page_source
+        matches = re.findall(pattern, source)
+        return matches
+    
+    def get_Tracks(self, driver):
+        pattern = r'/track/(\w+)'
         WebDriverWait(driver, 10).until(lambda driver=driver: re.search(pattern, driver.page_source))
         source = driver.page_source
         matches = re.findall(pattern, source)

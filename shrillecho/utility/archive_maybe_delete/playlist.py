@@ -29,22 +29,22 @@ class Playlist:
     def get_all_uris(self):
 
         """ Given a playlist return all the uris"""
-        try:
-            track_uris = []
-            offset = 0
-            limit = 1
-            while True:
-                playlist = self.__sp.playlist_items(self.__playlist, offset=offset, limit=limit)
-                tracks = playlist['pagination']
-                if not tracks:
-                    break
-                track_uris.extend([track['track']['uri'] for track in tracks])
-                offset += limit
+    
+        playlist = "next"
+        track_uris = []
+        offset = 0
+        limit = 1
+        while playlist["next"]:
+            playlist = self.__sp.playlist_items(self.__playlist, offset=offset, limit=limit)
+            tracks = playlist['pagination']
+            if not tracks:
+                break
+            track_uris.extend(tracks)
+            offset += limit
 
-            return track_uris
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            return []
+        return track_uris
+    
+    
 
     def get_all_isrcs(self):
         """ Given a playlist return every single isrc (if it exists i.e not local file or copyrighted track)"""

@@ -16,7 +16,7 @@ collection = "cache"
 
 client = MongoClient("mongodb://localhost:27017/")
 db = client[database]
-collection = db[collection]  #
+collection = db[collection]  
 
 
 
@@ -46,7 +46,7 @@ class EveryNoiseSeed:
         for isrc in self.__fetched_isrcs:
             cache.write(f'{isrc[0]},{isrc[1]}\n')
 
-    def __cache_reader(self, cache, *args):
+    def __cache_reader(self, cache):
         for isrc in cache:
             try:
                 print(isrc)
@@ -91,6 +91,6 @@ class EveryNoiseSeed:
         # Remove the isrcs we do not want to see
         scraped_tracks.difference_update(self.__filtered_isrcs)
 
-        # Convert the isrc back
-        tracks_u = general.convert_isrcs_to_uris(self.__sp, scraped_isrcs)
+        # # Convert the isrc back
+        # tracks_u = general.convert_isrcs_to_uris(self.__sp, scraped_isrcs)
         general.write_songs_to_playlist(self.__sp, f'EN seed: {self.__track_name} - {self.__track_artist}', tracks_u)
