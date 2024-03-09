@@ -2,8 +2,10 @@ import spotipy
 from spotipy import SpotifyOAuth
 import os
 
+from spotipy import SpotifyOAuth
 
 def authenticate():
+
     client_id = str(os.environ.get("SPOTIPY_CLIENT_ID"))
     client_secret = str(os.environ.get("SPOTIPY_CLIENT_SECRET"))
     scope = os.environ.get("SCOPE")

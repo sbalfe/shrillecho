@@ -10,7 +10,7 @@ from .components import LinkedFrom
 @dataclass
 class SimplifiedTrack:
     """ Track object for album"""
-    artists: List[Artist]
+    artists: List[SimpleArtist]
     available_markets: List[str]
     disc_number: int
     duration_ms: int
@@ -19,7 +19,7 @@ class SimplifiedTrack:
     href: str
     id: str
     name: str
-    preview_url: str
+    preview_url: Optional[str]
     track_number: int
     type: str
     uri: str
@@ -32,7 +32,7 @@ class SimplifiedTrack:
 @dataclass_json
 @dataclass
 class AlbumTracks:
-    """ https://developer.spotify.com/documentation/web-api/reference/get-an-album tracks object """
+    """ https://developer.spotify.com/documentation/web-api/reference/get-an-albums-tracks tracks object """
     href: str
     limit: int
     offset: int
@@ -42,12 +42,37 @@ class AlbumTracks:
     previous: Optional[str] = None
 
 
+
 @dataclass_json
 @dataclass
 class Album:
     """" Get album - https://developer.spotify.com/documentation/web-api/reference/get-an-album """
+    album_type: str # ok
+    artists: List[SimpleArtist] # ok
+    available_markets: List[str] # ok
+    external_urls: ExternalUrls # ok
+    id: str #ok
+    images: List[Image] # ok 
+    name: str #ok
+    release_date: str#ok
+    release_date_precision: str#ok
+    type: str#ok
+    uri: str#ok
+    genres: Optional[List[str]] = None #ok
+    restrictions: Optional[Restrictions] = None #ok
+    copyrights: Optional[List[Copyright]] = None # ok
+    external_ids: Optional[ExternalIds] = None
+    label: Optional[str] = None#ok
+    popularity: Optional[int] = None#ok
+    tracks: Optional[AlbumTracks] = None
+    total_tracks: Optional[int] = None #ok
+    href: Optional[str] = None#ok
+
+@dataclass_json
+@dataclass
+class SimplifiedAlbum:
     album_type: str
-    artists: List[SimpleArtist]
+    total_tracks: int
     available_markets: List[str]
     external_urls: ExternalUrls
     href: str
@@ -56,16 +81,24 @@ class Album:
     name: str
     release_date: str
     release_date_precision: str
+    restrictions: dict
     type: str
     uri: str
-    genres: Optional[List[str]] = None
-    restrictions: Optional[Restrictions] = None
-    copyrights: Optional[List[Copyright]] = None
-    external_ids: Optional[ExternalIds] = None
-    label: Optional[str] = None
-    popularity: Optional[int] = None
-    tracks: Optional[AlbumTracks] = None
-    total_tracks: Optional[int] = None
+    artists: List[SimpleArtist]
+    album_group: str
+
+
+@dataclass_json
+@dataclass
+class ArtistAlbums:
+    href: str
+    limit: int
+    next: str
+    offset: int
+    previous: str
+    total: int
+    items: List[SimplifiedAlbum]
+
 
 
 @dataclass_json

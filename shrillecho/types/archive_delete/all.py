@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
-from .base_types import (
+from shrillecho.types.base_types import (
     ExternalUrls, Followers, ExternalIds, Copyright, ExplicitContent, Image, Restrictions
 )
-from .tracks import Track
+from shrillecho.types.tracks import Track
 
 
 # @dataclass

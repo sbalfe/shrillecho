@@ -1,9 +1,13 @@
 from typing import List
 
+
 # Types
 from .components import AddedBy, Owner
 from .base_types import *
-from .tracks import Track
+from .tracks import Track, TrackInfo
+import json
+
+from .users import UserProfile
 
 
 @dataclass_json
@@ -12,20 +16,22 @@ class PlaylistTrack:
     added_at: str
     added_by: AddedBy
     is_local: bool
-    primary_color: Optional[str]
     track: Track
+    primary_color: Optional[str]
+   
 
 
 @dataclass_json
 @dataclass
 class PlaylistTracks:
-    href: str
-    limit: Optional[int]
-    next: Optional[str]
-    offset: Optional[int]
-    previous: Optional[str]
-    total: Optional[int]
-    items: List[PlaylistTrack]
+
+    limit: Optional[int] = None
+    next: Optional[str] = None
+    offset: Optional[int]= None
+    previous: Optional[str] = None
+    total: Optional[int] = None
+    items: List[PlaylistTrack] = None
+    href: Optional[str] = None
 
 
 @dataclass_json
@@ -33,6 +39,7 @@ class PlaylistTracks:
 class Playlist:
     """ Get playlist - https://developer.spotify.com/documentation/web-api/reference/get-playlist """
     id: str
+    tracks: Optional[PlaylistTracks]
     collaborative: Optional[bool] = None
     description: Optional[str] = None
     external_urls: Optional[ExternalUrls] = None
@@ -43,9 +50,36 @@ class Playlist:
     primary_color: Optional[str] = None
     public: Optional[bool] = None
     snapshot_id: Optional[str] = None
-    tracks: Optional[PlaylistTracks] = None
     type: Optional[str] = None
     uri: Optional[str] = None
     followers: Optional[Followers] = None
 
 
+@dataclass_json
+@dataclass
+class SimplifiedPlaylistObject:
+    collaborative: bool
+    description: str
+    external_urls: ExternalUrls
+    href: str
+    id: str
+    images: list[Image]
+    name: str
+    owner: UserProfile
+    public: bool
+    snapshot_id: str
+    tracks: TrackInfo
+    type: str
+    uri: str
+
+@dataclass_json
+@dataclass
+class UserPlaylist:
+    """ https://developer.spotify.com/documentation/web-api/reference/get-a-list-of-current-users-playlists """
+    href: str
+    limit: int
+    next: str
+    offset: int
+    previous: str
+    total: int
+    items: List[SimplifiedPlaylistObject]

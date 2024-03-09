@@ -6,11 +6,11 @@ from .base_types import *
 @dataclass
 class AddedBy:
     external_urls: ExternalUrls
-    href: str
     id: str
     type: str
     uri: str
     followers: Optional[Followers] = None
+    href: Optional[str] = None
 
 
 @dataclass_json

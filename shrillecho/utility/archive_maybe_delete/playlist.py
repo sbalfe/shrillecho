@@ -1,6 +1,5 @@
-import spotipy
 import re
-import shrillecho.utility.general as gen
+import shrillecho.utility.archive_maybe_delete.general as gen
 from shrillecho.types.playlists import Playlist as Playlist_t
 
 class Playlist:

@@ -1,12 +1,9 @@
-import os
-import re
 from datetime import datetime
 
-import requests
 import spotipy
 from typing import Optional
 from selenium.webdriver.firefox.webdriver import WebDriver
-from shrillecho.utility import general as sh, scraper
+from shrillecho.utility.archive_maybe_delete import scraper
 from shrillecho.types.albums import Album
 from shrillecho.types.tracks import Track
 import hashlib

@@ -3,12 +3,11 @@ import re
 import spotipy
 from pymongo import MongoClient
 
-import shrillecho.utility.spotify_client as sp_client
-import shrillecho.utility.general as general
-import os
+import shrillecho.utility.archive_maybe_delete.spotify_client as sp_client
+import shrillecho.utility.archive_maybe_delete.general as general
 
-from shrillecho.utility.cache import Cache
-from shrillecho.utility.playlist import Playlist
+from shrillecho.utility.archive_maybe_delete.cache import Cache
+from shrillecho.utility.archive_maybe_delete.playlist import Playlist
 from shrillecho.types.playlists import Playlist as Playlist_t
 
 database = "shrillecho-app"
@@ -93,4 +92,4 @@ class EveryNoiseSeed:
 
         # # Convert the isrc back
         # tracks_u = general.convert_isrcs_to_uris(self.__sp, scraped_isrcs)
-        general.write_songs_to_playlist(self.__sp, f'EN seed: {self.__track_name} - {self.__track_artist}', tracks_u)
+        general.write_songs_to_playlist(self.__sp, f'EN seed: {self.__track_name} - {self.__track_artist}')

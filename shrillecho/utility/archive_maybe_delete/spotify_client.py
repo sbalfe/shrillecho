@@ -1,9 +1,7 @@
 import random
 from typing import Tuple
 
-from requests import Session
-
-from shrillecho.utility.general import (
+from shrillecho.utility.archive_maybe_delete.general import (
     log
 )
 import requests

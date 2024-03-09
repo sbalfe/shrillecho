@@ -20,8 +20,14 @@ class Artist:
 @dataclass
 class SimpleArtist:
     external_urls: ExternalUrls
-    href: str
     id: str
     name: str
     type: str
     uri: str
+    href: Optional[str] = None
+
+@dataclass_json
+@dataclass
+class SeveralArtists:
+    artists: List[Artist]
+

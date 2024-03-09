@@ -21,6 +21,7 @@ class CurrentUserProfile:
     birthdate: Optional[str] = None
     policies: Optional[Policies] = None
 
+
 @dataclass_json
 @dataclass
 class UserProfile:

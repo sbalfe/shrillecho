@@ -1,9 +1,11 @@
 shrillecho-app/
+shrillecho-discord/
 scripts/
 data/
 venv/
+.venv/
 api_token
-
+devops/
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
