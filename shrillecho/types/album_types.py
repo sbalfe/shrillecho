@@ -2,8 +2,8 @@ from typing import List
 
 # Types
 from .base_types import *
-from shrillecho.types.artists import SimpleArtist, Artist
-from .components import LinkedFrom
+from shrillecho.types.artist_types import SimpleArtist, Artist
+from .component_types import LinkedFrom
 
 
 @dataclass_json
@@ -47,26 +47,26 @@ class AlbumTracks:
 @dataclass
 class Album:
     """" Get album - https://developer.spotify.com/documentation/web-api/reference/get-an-album """
-    album_type: str # ok
-    artists: List[SimpleArtist] # ok
-    available_markets: List[str] # ok
-    external_urls: ExternalUrls # ok
-    id: str #ok
-    images: List[Image] # ok 
-    name: str #ok
-    release_date: str#ok
-    release_date_precision: str#ok
-    type: str#ok
-    uri: str#ok
-    genres: Optional[List[str]] = None #ok
-    restrictions: Optional[Restrictions] = None #ok
-    copyrights: Optional[List[Copyright]] = None # ok
+    album_type: str 
+    artists: List[SimpleArtist]
+    available_markets: List[str] 
+    external_urls: ExternalUrls 
+    id: str 
+    images: List[Image]
+    name: str
+    release_date: str
+    release_date_precision: str
+    type: str#
+    uri: str
+    genres: Optional[List[str]] = None
+    restrictions: Optional[Restrictions] = None
+    copyrights: Optional[List[Copyright]] = None
     external_ids: Optional[ExternalIds] = None
-    label: Optional[str] = None#ok
-    popularity: Optional[int] = None#ok
+    label: Optional[str] = None
+    popularity: Optional[int] = None
     tracks: Optional[AlbumTracks] = None
-    total_tracks: Optional[int] = None #ok
-    href: Optional[str] = None#ok
+    total_tracks: Optional[int] = None
+    href: Optional[str] = None
 
 @dataclass_json
 @dataclass

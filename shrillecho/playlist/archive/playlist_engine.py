@@ -1,6 +1,6 @@
 from typing import List
 
-from shrillecho.types.playlists import Playlist, PlaylistTracks, PlaylistTrack
+from shrillecho.types.playlist_types import Playlist, PlaylistTracks, PlaylistTrack
 import json
 import spotipy
 import re

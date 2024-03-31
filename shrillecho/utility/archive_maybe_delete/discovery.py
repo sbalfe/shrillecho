@@ -8,7 +8,7 @@ import shrillecho.utility.archive_maybe_delete.general as general
 
 from shrillecho.utility.archive_maybe_delete.cache import Cache
 from shrillecho.utility.archive_maybe_delete.playlist import Playlist
-from shrillecho.types.playlists import Playlist as Playlist_t
+from shrillecho.types.playlist_types import Playlist as Playlist_t
 
 database = "shrillecho-app"
 collection = "cache"

@@ -28,6 +28,32 @@ class SimpleArtist:
 
 @dataclass_json
 @dataclass
+class FollowerCount:
+    followers: int
+
+
+
+
+@dataclass_json
+@dataclass
+class Cursors:
+    after: str
+    before: str
+
+@dataclass_json
+@dataclass
+class FollowedArtistsItems:
+    items: List[Artist]
+
+
+@dataclass_json
+@dataclass
+class FollowedArtists:
+    artists: FollowedArtistsItems
+
+
+@dataclass_json
+@dataclass
 class SeveralArtists:
     artists: List[Artist]
 

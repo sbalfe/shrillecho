@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "shrillecho"
-version = "1.0.7"
+version = "1.0.9"
 description = "Music Tool"
 authors = ["simon balfe <sbmain17@gmail.com>"]
 

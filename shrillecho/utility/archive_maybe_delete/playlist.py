@@ -1,6 +1,6 @@
 import re
 import shrillecho.utility.archive_maybe_delete.general as gen
-from shrillecho.types.playlists import Playlist as Playlist_t
+from shrillecho.types.playlist_types import Playlist as Playlist_t
 
 class Playlist:
     def __init__(self, sp,  playlist: Playlist_t = None):

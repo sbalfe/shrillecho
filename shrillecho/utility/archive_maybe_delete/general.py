@@ -4,8 +4,8 @@ import spotipy
 from typing import Optional
 from selenium.webdriver.firefox.webdriver import WebDriver
 from shrillecho.utility.archive_maybe_delete import scraper
-from shrillecho.types.albums import Album
-from shrillecho.types.tracks import Track
+from shrillecho.types.album_types import Album
+from shrillecho.types.track_types import Track
 import hashlib
 import json
 

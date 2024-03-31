@@ -4,7 +4,7 @@ from typing import List, Optional
 from shrillecho.types.base_types import (
     ExternalUrls, Followers, ExternalIds, Copyright, ExplicitContent, Image, Restrictions
 )
-from shrillecho.types.tracks import Track
+from shrillecho.types.track_types import Track
 
 
 # @dataclass

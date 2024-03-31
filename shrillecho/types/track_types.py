@@ -1,8 +1,8 @@
 from typing import List, TYPE_CHECKING
 from .base_types import *
-from shrillecho.types.albums import Album
-from shrillecho.types.artists import Artist
-from shrillecho.types.components import LinkedFrom
+from shrillecho.types.album_types import Album
+from shrillecho.types.artist_types import Artist
+from shrillecho.types.component_types import LinkedFrom
 
 
 @dataclass_json
@@ -25,16 +25,36 @@ class Track:
     type: str
     uri: str
     is_local: bool
+    popularity: str
     restrictions: Optional[Restrictions] = None
     is_playable: Optional[bool] = None
     linked_from: Optional[LinkedFrom] = None
+    liked: Optional[bool] = None
 
     def __eq__(self, other):
         if isinstance(other, Track):
-            return self.external_ids.isrc == other.external_ids.isrc
+            try:
+                if self.external_ids.isrc == other.external_ids.isrc:
+                    return True 
+                elif (self.artists[0].id == other.artists[0].id) and (self.name == other.name):
+                    return True 
+                return False
+            except:
+                return False
         return False
+    
     def __hash__(self):
-        return hash(self.external_ids.isrc)
+        try:
+            isrc = self.external_ids.isrc
+            artist_id = self.artists[0].id if len(self.artists) > 0 else None
+            if isrc:
+                hash_value = isrc 
+            else: 
+                hash_value = (artist_id, self.name)
+            return hash(hash_value)
+        except:
+             return hash((id(self), self.name))
+        
 @dataclass_json
 @dataclass
 class TrackSearchItems:

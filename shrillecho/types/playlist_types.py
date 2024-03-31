@@ -2,12 +2,12 @@ from typing import List
 
 
 # Types
-from .components import AddedBy, Owner
+from .component_types import AddedBy, Owner
 from .base_types import *
-from .tracks import Track, TrackInfo
+from .track_types import Track, TrackInfo
 import json
 
-from .users import UserProfile
+from .user_types import UserProfile
 
 
 @dataclass_json
@@ -74,7 +74,7 @@ class SimplifiedPlaylistObject:
 
 @dataclass_json
 @dataclass
-class UserPlaylist:
+class UserPlaylists:
     """ https://developer.spotify.com/documentation/web-api/reference/get-a-list-of-current-users-playlists """
     href: str
     limit: int
